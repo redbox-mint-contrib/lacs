@@ -4,11 +4,11 @@
     <groupId>au.edu.usq.fascinator.redbox.plugins</groupId>
     <artifactId>plugin-harvester-callista</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <name>ReDBox - Plugin - Harvester - Callista</name>
+    <name>ReDBox LACS - Plugin - Harvester - Callista</name>
     <url>http://fascinator.usq.edu.au/trac/wiki/tf2/DeveloperNotes/plugins/harvester/callista</url>
     <parent>
         <groupId>au.edu.usq.fascinator.redbox</groupId>
-        <artifactId>redbox-project</artifactId>
+        <artifactId>redbox-lacs-project</artifactId>
         <version>0.1.0-SNAPSHOT</version>
         <relativePath>../../../parent/pom.xml</relativePath>
     </parent>
