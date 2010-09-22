@@ -1,0 +1,7 @@
+To compile/build the system type:
+
+  mvn clean install
+  
+You can run the system under Jetty for testing:
+ 1. cd target/jetty/server
+ 2. "tf_start.bat" (win) or "tf start" (*nix)
