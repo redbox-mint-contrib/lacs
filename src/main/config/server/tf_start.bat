@@ -1,4 +1,4 @@
-@echo off
+@echo oon
 setlocal ENABLEDELAYEDEXPANSION
 
 set PROGRAM_DIR=%~dp0

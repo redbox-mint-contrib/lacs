@@ -1,11 +1,25 @@
-@echo off
+@echo on
 REM this script sets the environment for the fascinator scripts
-set FASCINATOR_HOME=${dir.home}
+
+REM ##############################################################
+REM Most of the config can be done in this section 
+
+set FASCINATOR_BASE=%PROGRAM_DIR%..
+
+set FASCINATOR_HOME=%FASCINATOR_BASE%\home
+set SOLR_HOME=%FASCINATOR_BASE%\solr
+set JETTY_HOME=%FASCINATOR_BASE%\server\jetty
+set LOGS_HOME=%FASCINATOR_HOME%\logs
+set PORTAL_HOME=%FASCINATOR_BASE%\portal
+set STORAGE_HOME=%FASCINTAOR_BASE%\storage
+
+REM ##############################################################
+
 set CLASSPATH=plugins/*;lib/*
 
 REM Logging directories
-set SOLR_LOGS=%FASCINATOR_HOME%\logs\solr
-set JETTY_LOGS=%FASCINATOR_HOME%\logs\jetty
+set SOLR_LOGS=%LOGS_HOME%\solr
+set JETTY_LOGS=%LOGS_HOME%\jetty
 if exist "%JETTY_LOGS%" goto skipjetty
 mkdir "%JETTY_LOGS%"
 :skipjetty
@@ -33,15 +47,15 @@ REM jvm memory settings
 set JVM_OPTS=-XX:MaxPermSize=256m -Xmx512m
 
 REM jetty settings
-set JETTY_OPTS=-Djetty.port=8080 -Djetty.logs=%JETTY_LOGS% -Djetty.home=${dir.server}/jetty
+set JETTY_OPTS=-Djetty.port=8080 -Djetty.logs=%JETTY_LOGS% -Djetty.home=%JETTY_HOME%
 
 REM solr settings
-set SOLR_OPTS=-Dsolr.solr.home="${dir.solr}" -Djava.util.logging.config.file="${dir.solr}/logging.properties"
+set SOLR_OPTS=-Dsolr.solr.home="%SOLR_HOME%" -Djava.util.logging.config.file="%SOLR_HOME%\logging.properties"
 
 REM proxy data
 set PROXY_OPTS=-Dhttp.proxyHost=%PROXY_HOST% -Dhttp.proxyPort=%PROXY_PORT% -Dhttp.nonProxyHosts="*.newcastle.edu.au^|localhost"
 
 REM directories
-set CONFIG_DIRS=-Dfascinator.home="%FASCINATOR_HOME%" -Dportal.home="${dir.portal}" -Dstorage.home="${dir.storage}"
+set CONFIG_DIRS=-Dfascinator.home="%FASCINATOR_HOME%" -Dportal.home="%PORTAL_HOME%" -Dstorage.home="%STORAGE_HOME%"
 
 set JAVA_OPTS=%JVM_OPTS% %SOLR_OPTS% %PROXY_OPTS% %JETTY_OPTS% %CONFIG_DIRS%
