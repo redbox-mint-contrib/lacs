@@ -3,15 +3,7 @@
 # Data can be downloaded from:
 #     http://www.loc.gov/standards/iso639-2/ISO-639-2_utf-8.txt
 #
-import md5, time
-
-from au.edu.usq.fascinator.api.storage import StorageException
-from au.edu.usq.fascinator.common import JsonConfigHelper
-from au.edu.usq.fascinator.common.storage import StorageUtils
-from java.io import ByteArrayInputStream
-from java.lang import Exception, String
-from java.util import HashMap
-from org.apache.commons.codec.digest import DigestUtils
+import time
 
 class IndexData:
     def __init__(self):
@@ -20,12 +12,10 @@ class IndexData:
     def __activate__(self, context):
         # Prepare variables
         self.index = context["fields"]
-        self.indexer = context["indexer"]
         self.object = context["object"]
         self.payload = context["payload"]
         self.params = context["params"]
         self.utils = context["pyUtils"]
-        self.config = context["jsonConfig"]
 
         # Common data
         self.__newDoc()
@@ -67,7 +57,10 @@ class IndexData:
         jsonPayload = self.object.getPayload("metadata.json")
         json = self.utils.getJsonObject(jsonPayload.open())
         jsonPayload.close()
-        
+
+        metadata = json.getMap("metadata")
+        self.utils.add(self.index, "dc_identifier", metadata.get("dc.identifier"))
+
         data = json.getMap("data")
         self.utils.add(self.index, "dc_title", data.get("alpha3"))
         self.utils.add(self.index, "dc_description", data.get("english"))

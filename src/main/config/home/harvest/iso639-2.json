@@ -4,7 +4,7 @@
         "csv": {
             "fileLocation": "${fascinator.home}/data/ISO-639-2_utf-8.txt",
             "idColumn": "alpha3",
-            "recordIDPrefix": "",
+            "recordIDPrefix": "http://id.loc.gov/vocabulary/iso639-2/",
             "headerRow": false,
             "headerList": ["alpha3", "alpha3_alt", "alpha2", "english", "french"],
             "delimiter": "|",
