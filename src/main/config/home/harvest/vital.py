@@ -43,15 +43,16 @@ class IndexData:
             json = self.utils.getJsonObject(payload.open())
             payload.close()
             
-            title = json.get("title")
+            title = json.getString("", ["title"])
             
-            author100 = json.get("author_100")
+            author100 = json.getString(None, ["author_100"])
             if author100:
                 self.__createAuthorRecord(title, author100)
             
-            author700 = json.getList("author_700")
-            for author in author700:
-                self.__createAuthorRecord(title, author)
+            author700 = json.getStringList(["author_700"])
+            if author700:
+                for author in author700:
+                    self.__createAuthorRecord(title, author)
             
         except StorageException, se:
             print "Failed to read metadata payload: '%s'" % str(e)
@@ -80,12 +81,14 @@ class IndexData:
         self.indexer.sendIndexToBuffer(oid, index)
 
     def __mapVuFind(self, ourField, theirField, map):
-        for value in map.getList(theirField):
-            if theirField == "faculty":
-                self.faculty = value
-            if theirField == "school":
-                self.school = value
-            self.utils.add(self.index, ourField, value)
+        values = map.getStringList([theirField])
+        if values is not None:
+            for value in values:
+                if theirField == "faculty":
+                    self.faculty = value
+                if theirField == "school":
+                    self.school = value
+                self.utils.add(self.index, ourField, value)
 
     def __solrMarc(self):
         ### Index the marc metadata extracted from solrmarc
