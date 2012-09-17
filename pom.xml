@@ -606,7 +606,7 @@
     </plugins>
   </build>
   <scm>
-    <scmUrl>https://github.com/redbox-mint-contrib/lacs</scmUrl>
+    <url>https://github.com/redbox-mint-contrib/lacs</url>
     <developerConnection>scm:git:https://github.com/redbox-mint-contrib/lacs.git</developerConnection>
   </scm>
 </project>
